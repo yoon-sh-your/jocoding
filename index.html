@@ -3,143 +3,54 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>제휴 문의</title>
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+<title>AI 동물상 테스트</title>
 
-body{
-    font-family:'Pretendard',sans-serif;
-    background:#f5f7fb;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-    padding:30px;
-}
+<link rel="stylesheet" href="style.css">
 
-.container{
-    width:100%;
-    max-width:600px;
-    background:#fff;
-    border-radius:20px;
-    padding:40px;
-    box-shadow:0 15px 35px rgba(0,0,0,.1);
-}
-
-h1{
-    text-align:center;
-    margin-bottom:10px;
-    font-size:32px;
-}
-
-p{
-    text-align:center;
-    color:#666;
-    margin-bottom:30px;
-}
-
-.input-group{
-    margin-bottom:20px;
-}
-
-label{
-    display:block;
-    margin-bottom:8px;
-    font-weight:600;
-}
-
-input,
-textarea{
-    width:100%;
-    padding:15px;
-    border:1px solid #ddd;
-    border-radius:10px;
-    font-size:16px;
-    outline:none;
-    transition:.3s;
-}
-
-input:focus,
-textarea:focus{
-    border-color:#4f46e5;
-}
-
-textarea{
-    min-height:180px;
-    resize:vertical;
-}
-
-button{
-    width:100%;
-    padding:16px;
-    border:none;
-    border-radius:12px;
-    background:#4f46e5;
-    color:#fff;
-    font-size:18px;
-    cursor:pointer;
-    transition:.3s;
-}
-
-button:hover{
-    background:#3730a3;
-}
-</style>
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest"></script>
 
 </head>
+
 <body>
 
 <div class="container">
 
-<h1>🤝 제휴 문의</h1>
+    <h1>🐶🐱 AI 동물상 테스트</h1>
 
-<p>
-협업, 광고, 프로젝트 의뢰 등<br>
-편하게 문의해주세요.
-</p>
+    <p>
+        당신의 사진을 AI가 분석해서<br>
+        강아지상인지 고양이상인지 알려드립니다.
+    </p>
 
-<form action="https://formspree.io/f/xqerovpr" method="POST">
 
-<div class="input-group">
-<label>회사명</label>
-<input type="text" name="company" required>
-</div>
+    <input 
+        type="file" 
+        id="imageUpload"
+        accept="image/*"
+    >
 
-<div class="input-group">
-<label>담당자 이름</label>
-<input type="text" name="name" required>
-</div>
 
-<div class="input-group">
-<label>이메일</label>
-<input type="email" name="email" required>
-</div>
+    <div class="preview">
+        <img id="previewImage">
+    </div>
 
-<div class="input-group">
-<label>연락처</label>
-<input type="tel" name="phone">
-</div>
 
-<div class="input-group">
-<label>문의 내용</label>
-<textarea
-name="message"
-placeholder="제휴 또는 협업 내용을 작성해주세요."
-required></textarea>
-</div>
+    <button onclick="predict()">
+        동물상 테스트 하기
+    </button>
 
-<button type="submit">
-제휴 문의 보내기
-</button>
 
-</form>
+    <div id="result">
+        사진을 업로드해주세요.
+    </div>
+
 
 </div>
+
+
+<script src="script.js"></script>
 
 </body>
 </html>
