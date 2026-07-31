@@ -1,256 +1,296 @@
-// =========================
-// 페이지 토글
-// =========================
-
+// =====================
+// 페이지 전환
+// =====================
 
 function showPage(page){
 
-
     const animal =
     document.getElementById("animalPage");
-    
-    
+
     const contact =
     document.getElementById("contactPage");
-    
-    
-    
+
+
     if(page==="animal"){
-    
-    
-    animal.style.display="block";
-    
-    contact.style.display="none";
-    
-    
+
+        animal.style.display="block";
+        contact.style.display="none";
+
     }
-    
     else{
-    
-    
-    animal.style.display="none";
-    
-    contact.style.display="block";
-    
-    
+
+        animal.style.display="none";
+        contact.style.display="block";
+
     }
-    
-    
-    }
-    
-    
-    
-    
-    
-    // =========================
-    // Teachable Machine
-    // =========================
-    
-    
-    const URL = 
-    "https://teachablemachine.withgoogle.com/models/c0ZAn3cpk/";
-    
-    
-    
-    let model;
-    
-    
-    
-    async function loadModel(){
-    
-    
+
+}
+
+
+
+
+
+// =====================
+// Teachable Machine
+// =====================
+
+
+const URL =
+"https://teachablemachine.withgoogle.com/models/lEIL44Xhr/";
+
+
+let model;
+
+
+
+async function loadModel(){
+
     const modelURL =
     URL + "model.json";
-    
-    
+
+
     const metadataURL =
     URL + "metadata.json";
-    
-    
-    
-    model = await tmImage.load(
-    modelURL,
-    metadataURL
-    );
-    
-    
-    
-    console.log(
-    "AI 모델 로딩 완료"
-    );
-    
-    
+
+
+    try{
+
+        model =
+        await tmImage.load(
+            modelURL,
+            metadataURL
+        );
+
+
+        console.log(
+        "✅ 모델 로딩 완료"
+        );
+
+
     }
-    
-    
-    
-    loadModel();
-    
-    
-    
-    
-    
-    
-    
-    
-    // 이미지 미리보기
-    
-    
-    const upload =
-    document.getElementById(
-    "imageUpload"
-    );
-    
-    
-    
-    upload.addEventListener(
-    "change",
-    (e)=>{
-    
-    
+    catch(error){
+
+        console.log(
+        "모델 오류",
+        error
+        );
+
+    }
+
+
+}
+
+
+loadModel();
+
+
+
+
+
+// =====================
+// 이미지 업로드
+// =====================
+
+
+const upload =
+document.getElementById(
+"imageUpload"
+);
+
+
+
+upload.addEventListener(
+"change",
+function(e){
+
+
     const file =
     e.target.files[0];
-    
-    
-    
+
+
+    if(!file)
+    return;
+
+
+
     const reader =
     new FileReader();
-    
-    
-    
+
+
+
     reader.onload =
     function(event){
-    
-    
-    document
-    .getElementById("previewImage")
-    .src =
-    event.target.result;
-    
-    
+
+
+        const img =
+        document.getElementById(
+        "previewImage"
+        );
+
+
+        img.src =
+        event.target.result;
+
+
     }
-    
-    
-    
+
+
+
     reader.readAsDataURL(file);
-    
-    
-    
-    }
-    
-    );
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    // =========================
-    // AI 분석
-    // =========================
-    
-    
-    async function predict(){
-    
-    
-    
-    const image =
-    document.getElementById(
-    "previewImage"
-    );
-    
-    
-    
-    if(!image.src){
-    
-    
-    alert(
-    "사진을 먼저 업로드해주세요."
-    );
-    
-    
-    return;
-    
-    
-    }
-    
-    
-    
-    if(!model){
-    
-    
-    alert(
-    "AI 모델 로딩중입니다."
-    );
-    
-    
-    return;
-    
-    
-    }
-    
-    
-    
-    const prediction =
-    await model.predict(image);
-    
-    
-    
-    prediction.sort(
-    (a,b)=>
-    b.probability-a.probability
-    );
-    
-    
-    
-    const result =
-    prediction[0];
-    
-    
-    
-    let text;
-    
-    
-    
-    if(
-    result.className.includes("강아지")
-    ||
-    result.className.includes("Dog")
-    ){
-    
-    
-    text="🐶 강아지상";
-    
-    
-    }
-    
-    else{
-    
-    
-    text="🐱 고양이상";
-    
-    
-    }
-    
-    
-    
-    document
-    .getElementById("result")
-    .innerHTML=`
-    
-    ${text}
-    
-    <br>
-    
-    정확도 :
-    
-    ${(result.probability*100).toFixed(1)}%
-    
-    `;
-    
-    
-    
-    }
+
+
+});
+
+
+
+
+
+
+// =====================
+// AI 분석
+// =====================
+
+
+async function predict(){
+
+
+
+const img =
+document.getElementById(
+"previewImage"
+);
+
+
+
+if(!img.src){
+
+alert(
+"사진을 먼저 업로드해주세요."
+);
+
+return;
+
+}
+
+
+
+
+if(!model){
+
+alert(
+"AI 모델 로딩중입니다."
+);
+
+return;
+
+}
+
+
+
+
+
+document.getElementById(
+"result"
+).innerHTML="";
+
+
+
+
+
+
+try{
+
+
+const prediction =
+await model.predict(
+img
+);
+
+
+
+console.log(
+prediction
+);
+
+
+
+
+
+prediction.sort(
+(a,b)=>
+b.probability -
+a.probability
+);
+
+
+
+
+
+const best =
+prediction[0];
+
+
+
+
+
+
+document.getElementById(
+"result"
+).innerHTML=
+
+`
+
+<div>
+
+🎉 결과
+
+</div>
+
+
+<h2>
+
+${best.className}
+
+</h2>
+
+
+<p>
+
+확률 :
+
+${
+
+(best.probability*100)
+.toFixed(2)
+
+}%
+
+</p>
+
+
+`;
+
+
+
+
+}
+
+catch(error){
+
+
+console.error(error);
+
+
+document.getElementById(
+"result"
+).innerHTML=
+
+"❌ 분석 오류 발생";
+
+
+}
+
+
+
+
+}

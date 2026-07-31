@@ -324,3 +324,15 @@
   
   
   }
+
+  #loading{
+
+    display:none;
+    
+    margin-top:20px;
+    
+    font-size:18px;
+    
+    color:#ff8fab;
+    
+    }
