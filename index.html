@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🎲 로또 번호 추천기</title>
+<title>제휴 문의</title>
 
 <style>
 *{
@@ -13,106 +13,81 @@
 }
 
 body{
-    font-family:Arial, sans-serif;
-    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    font-family:'Pretendard',sans-serif;
+    background:#f5f7fb;
     display:flex;
     justify-content:center;
     align-items:center;
     min-height:100vh;
-    padding:30px 0;
+    padding:30px;
 }
 
 .container{
+    width:100%;
+    max-width:600px;
     background:#fff;
-    padding:40px;
     border-radius:20px;
-    text-align:center;
-    box-shadow:0 15px 35px rgba(0,0,0,.2);
-    width:90%;
-    max-width:700px;
+    padding:40px;
+    box-shadow:0 15px 35px rgba(0,0,0,.1);
 }
 
 h1{
+    text-align:center;
+    margin-bottom:10px;
+    font-size:32px;
+}
+
+p{
+    text-align:center;
+    color:#666;
+    margin-bottom:30px;
+}
+
+.input-group{
     margin-bottom:20px;
-    font-size:38px;
+}
+
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+input,
+textarea{
+    width:100%;
+    padding:15px;
+    border:1px solid #ddd;
+    border-radius:10px;
+    font-size:16px;
+    outline:none;
+    transition:.3s;
+}
+
+input:focus,
+textarea:focus{
+    border-color:#4f46e5;
+}
+
+textarea{
+    min-height:180px;
+    resize:vertical;
 }
 
 button{
-    padding:15px 35px;
-    font-size:20px;
+    width:100%;
+    padding:16px;
     border:none;
-    border-radius:50px;
+    border-radius:12px;
+    background:#4f46e5;
+    color:#fff;
+    font-size:18px;
     cursor:pointer;
-    background:#ff9800;
-    color:white;
     transition:.3s;
 }
 
 button:hover{
-    background:#f57c00;
-    transform:scale(1.05);
-}
-
-#numbers{
-    margin-top:35px;
-}
-
-.game{
-    background:#f8f8f8;
-    border-radius:15px;
-    padding:20px;
-    margin-bottom:20px;
-    box-shadow:0 5px 15px rgba(0,0,0,.08);
-}
-
-.game h3{
-    margin-bottom:15px;
-    color:#333;
-    font-size:24px;
-}
-
-.ball-wrap{
-    display:flex;
-    justify-content:center;
-    flex-wrap:wrap;
-    gap:12px;
-}
-
-.ball{
-    width:70px;
-    height:70px;
-    border-radius:50%;
-    color:white;
-    font-size:28px;
-    font-weight:bold;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    box-shadow:0 5px 10px rgba(0,0,0,.2);
-    animation:pop .3s;
-}
-
-@keyframes pop{
-    from{
-        transform:scale(0);
-        opacity:0;
-    }
-    to{
-        transform:scale(1);
-        opacity:1;
-    }
-}
-
-.yellow{background:#fbc400;}
-.blue{background:#4a90e2;}
-.red{background:#ef5350;}
-.gray{background:#777;}
-.green{background:#43a047;}
-
-p{
-    margin-top:20px;
-    color:#666;
-    font-size:18px;
+    background:#3730a3;
 }
 </style>
 
@@ -121,84 +96,50 @@ p{
 
 <div class="container">
 
-    <h1>🎲 로또 번호 추천</h1>
+<h1>🤝 제휴 문의</h1>
 
-    <button onclick="generateLotto()">
-       로또 번호 추천받기
-    </button>
+<p>
+협업, 광고, 프로젝트 의뢰 등<br>
+편하게 문의해주세요.
+</p>
 
-    <div id="numbers"></div>
+<form action="https://formspree.io/f/xqerovpr" method="POST">
 
-    <p>행운을 빕니다! 🍀</p>
-
+<div class="input-group">
+<label>회사명</label>
+<input type="text" name="company" required>
 </div>
 
-<script>
+<div class="input-group">
+<label>담당자 이름</label>
+<input type="text" name="name" required>
+</div>
 
-function getColor(num){
-    if(num<=10) return "yellow";
-    if(num<=20) return "blue";
-    if(num<=30) return "red";
-    if(num<=40) return "gray";
-    return "green";
-}
+<div class="input-group">
+<label>이메일</label>
+<input type="email" name="email" required>
+</div>
 
-function generateOneGame(){
+<div class="input-group">
+<label>연락처</label>
+<input type="tel" name="phone">
+</div>
 
-    const numbers=[];
+<div class="input-group">
+<label>문의 내용</label>
+<textarea
+name="message"
+placeholder="제휴 또는 협업 내용을 작성해주세요."
+required></textarea>
+</div>
 
-    while(numbers.length<6){
+<button type="submit">
+제휴 문의 보내기
+</button>
 
-        const n=Math.floor(Math.random()*45)+1;
+</form>
 
-        if(!numbers.includes(n)){
-            numbers.push(n);
-        }
-
-    }
-
-    return numbers.sort((a,b)=>a-b);
-
-}
-
-function generateLotto(){
-
-    const result=document.getElementById("numbers");
-    result.innerHTML="";
-
-    for(let i=1;i<=5;i++){
-
-        const game=document.createElement("div");
-        game.className="game";
-
-        const title=document.createElement("h3");
-        title.textContent=`🎲 ${i}게임`;
-
-        const wrap=document.createElement("div");
-        wrap.className="ball-wrap";
-
-        const numbers=generateOneGame();
-
-        numbers.forEach(num=>{
-
-            const ball=document.createElement("div");
-            ball.className="ball "+getColor(num);
-            ball.textContent=num;
-
-            wrap.appendChild(ball);
-
-        });
-
-        game.appendChild(title);
-        game.appendChild(wrap);
-
-        result.appendChild(game);
-
-    }
-
-}
-
-</script>
+</div>
 
 </body>
 </html>
