@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🎲 로또 번호 추천기</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:linear-gradient(135deg,#4facfe,#00f2fe);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    min-height:100vh;
+    padding:30px 0;
+}
+
+.container{
+    background:#fff;
+    padding:40px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 15px 35px rgba(0,0,0,.2);
+    width:90%;
+    max-width:700px;
+}
+
+h1{
+    margin-bottom:20px;
+    font-size:38px;
+}
+
+button{
+    padding:15px 35px;
+    font-size:20px;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    background:#ff9800;
+    color:white;
+    transition:.3s;
+}
+
+button:hover{
+    background:#f57c00;
+    transform:scale(1.05);
+}
+
+#numbers{
+    margin-top:35px;
+}
+
+.game{
+    background:#f8f8f8;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:20px;
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+}
+
+.game h3{
+    margin-bottom:15px;
+    color:#333;
+    font-size:24px;
+}
+
+.ball-wrap{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:12px;
+}
+
+.ball{
+    width:70px;
+    height:70px;
+    border-radius:50%;
+    color:white;
+    font-size:28px;
+    font-weight:bold;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 5px 10px rgba(0,0,0,.2);
+    animation:pop .3s;
+}
+
+@keyframes pop{
+    from{
+        transform:scale(0);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+.yellow{background:#fbc400;}
+.blue{background:#4a90e2;}
+.red{background:#ef5350;}
+.gray{background:#777;}
+.green{background:#43a047;}
+
+p{
+    margin-top:20px;
+    color:#666;
+    font-size:18px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🎲 로또 번호 추천</h1>
+
+    <button onclick="generateLotto()">
+        번호 추천받기
+    </button>
+
+    <div id="numbers"></div>
+
+    <p>행운을 빕니다! 🍀</p>
+
+</div>
+
+<script>
+
+function getColor(num){
+    if(num<=10) return "yellow";
+    if(num<=20) return "blue";
+    if(num<=30) return "red";
+    if(num<=40) return "gray";
+    return "green";
+}
+
+function generateOneGame(){
+
+    const numbers=[];
+
+    while(numbers.length<6){
+
+        const n=Math.floor(Math.random()*45)+1;
+
+        if(!numbers.includes(n)){
+            numbers.push(n);
+        }
+
+    }
+
+    return numbers.sort((a,b)=>a-b);
+
+}
+
+function generateLotto(){
+
+    const result=document.getElementById("numbers");
+    result.innerHTML="";
+
+    for(let i=1;i<=5;i++){
+
+        const game=document.createElement("div");
+        game.className="game";
+
+        const title=document.createElement("h3");
+        title.textContent=`🎲 ${i}게임`;
+
+        const wrap=document.createElement("div");
+        wrap.className="ball-wrap";
+
+        const numbers=generateOneGame();
+
+        numbers.forEach(num=>{
+
+            const ball=document.createElement("div");
+            ball.className="ball "+getColor(num);
+            ball.textContent=num;
+
+            wrap.appendChild(ball);
+
+        });
+
+        game.appendChild(title);
+        game.appendChild(wrap);
+
+        result.appendChild(game);
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
