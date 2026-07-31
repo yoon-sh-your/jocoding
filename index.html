@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,49 +9,190 @@
 
 <link rel="stylesheet" href="style.css">
 
+
+<!-- Teachable Machine -->
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest"></script>
 
 </head>
 
+
 <body>
+
 
 <div class="container">
 
-    <h1>🐶🐱 AI 동물상 테스트</h1>
 
-    <p>
-        당신의 사진을 AI가 분석해서<br>
-        강아지상인지 고양이상인지 알려드립니다.
-    </p>
+<header>
 
-
-    <input 
-        type="file" 
-        id="imageUpload"
-        accept="image/*"
-    >
+<h1>
+🐾 AI Animal Test
+</h1>
 
 
-    <div class="preview">
-        <img id="previewImage">
-    </div>
+<div class="menu">
+
+<button onclick="showPage('animal')">
+🐶 동물상 테스트
+</button>
 
 
-    <button onclick="predict()">
-        동물상 테스트 하기
-    </button>
+<button onclick="showPage('contact')">
+🤝 제휴 문의
+</button>
 
 
-    <div id="result">
-        사진을 업로드해주세요.
-    </div>
+</div>
+
+</header>
+
+
+
+
+
+<!-- 동물상 테스트 -->
+
+<section id="animalPage">
+
+
+<h2>
+🐶🐱 나의 동물상은?
+</h2>
+
+
+<p>
+사진을 업로드하면 AI가 분석합니다.
+</p>
+
+
+
+<input 
+type="file"
+id="imageUpload"
+accept="image/*"
+>
+
+
+
+<img 
+id="previewImage"
+src=""
+>
+
+
+
+<button 
+class="main-btn"
+onclick="predict()">
+
+AI 분석하기
+
+</button>
+
+
+
+<div id="result">
+
+사진을 업로드해주세요.
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<!-- 제휴 문의 -->
+
+<section 
+id="contactPage"
+style="display:none;">
+
+
+<h2>
+🤝 제휴 문의
+</h2>
+
+
+<p>
+협업 및 광고 문의를 남겨주세요.
+</p>
+
+
+
+<form 
+class="contact-form"
+
+action="https://formspree.io/f/xqerovpr"
+
+method="POST">
+
+
+<input 
+type="text"
+name="company"
+placeholder="회사명"
+required
+>
+
+
+<input
+type="text"
+name="name"
+placeholder="담당자명"
+required
+>
+
+
+
+<input
+type="email"
+name="email"
+placeholder="이메일"
+required
+>
+
+
+<textarea
+
+name="message"
+
+placeholder="문의 내용을 입력해주세요"
+
+required>
+
+</textarea>
+
+
+
+<button 
+class="main-btn">
+
+문의 보내기
+
+</button>
+
+
+</form>
+
+
+
+</section>
+
+
 
 
 </div>
 
 
+
 <script src="script.js"></script>
+
 
 </body>
 </html>
